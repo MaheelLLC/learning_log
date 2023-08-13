@@ -66,6 +66,7 @@ INSTALLED_APPS = [
 # learning_logs (the app), and tell Django to migrate the project.
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -156,7 +157,8 @@ BOOTSTRAP3 = {
 }
 
 # Heroku settings
-if os.getcwd() =='/app':
+cwd = os.getcwd()
+if cwd == '/app' or cwd[:4] == '/tmp':
     import dj_database_url
     DATABASES = {
         'default': dj_database_url.config(default='postgres://localhost')
