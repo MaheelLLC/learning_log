@@ -9,3 +9,5 @@ soupsieve==2.4.1
 sqlparse==0.4.4
 typing_extensions==4.7.1
 whitenoise==6.5.0
+dj-static==0.0.6
+static3==0.7.0
