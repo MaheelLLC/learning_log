@@ -1,0 +1,38 @@
+{% extends "learning_logs/base.html" %}
+{% load bootstrap3 %}
+
+{% block header %}
+  <h2>Log in to your account.</h2>
+{% endblock header %}
+
+{% block content %}
+
+  <form method="post" action="{% url 'users:login' %}">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+
+    {% buttons %}
+      <button name="submit" class="btn btn-primary">log in</button>
+    {% endbuttons %}
+
+    <input type="hidden" name="next" value="{% url 'learning_logs:index' %}" />
+  </form>
+
+{% endblock content %}
+
+<!-- Hey! we finally learned how to comment in html. Anyways, this is the login
+page template. It's cool that we can extend a base html from another app like
+learning_logs. Fortunately, we don't have to create a form or view function
+since Django will use its default login view (remember LoginView from urls.py?)
+The form has an errors attribute which we use for a conditional that displays
+an error message. We want the login view to process the form, so we set the
+action argument as the URL of the login page. The login view sends a form to
+the template, and it's up to us to dsplay the form and add a submit button.
+Since we can't redirect from the view function (cuz we didn't make one), we 
+can redirect in the template file where we put a hidden form element, 'next'.
+The value argument of this input tells Django to redirect the user after they've
+logged in successfully. -->
+
+<!--{% if form.errors %}
+  <p>Your username and password didn't match Jenius. Please try again.</p>
+  {% endif %}-->

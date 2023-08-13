@@ -1,0 +1,112 @@
+{% load bootstrap3 %}
+
+<!DOCTYPE html>
+<html lang = "en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Learning Log</title>
+
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+  </head>
+
+  <body>
+
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                data-toggle="collapse" data-target="#navbar"
+                aria-expanded="false" aria-controls="navbar">
+            </button>
+            <a class="navbar-brand" href="{% url 'learning_logs:index' %}">
+                Learning Log</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="{% url 'learning_logs:topics' %}">Topics</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+              <li><a>Hello, {{ user.username }}.</a></li>
+              <li><a href="{% url 'users:logout' %}">log out</a></li>
+            {% else %}
+              <li><a href="{% url 'users:register' %}">register</a></li>
+              <li><a href="{% url 'users:login' %}">log in</a></li>
+            {% endif %}
+          </ul>
+        </div><!--/.nav-collapse -->
+        
+      </div>
+    </nav>
+    <div class="container">
+      
+      <div class="page-header">
+        {% block header %}{% endblock header %}
+      </div>
+      <div>
+        {% block content %}{% endblock content %}
+      </div>
+
+    </div> <!-- /container -->
+    
+  </body>
+</html>
+
+<!-- There is alot of stuff going on here, so let's explain it piece by piece.
+When we load bootstrap3, we're actually loading a collection of template tags
+available in django-boostrap3. Next two lines, we declare this file as an HTML
+document written in English. An HTML file is divided into two parts: the head
+and the body. The head of the file doesn't contain any content: it just tells
+the browser what it needs to know to display the page correctly. Specifically,
+the user will not see any visual output from the head portion, the head doesn't
+produce any visual content for the webpage. Thus, the utf-8 and the two lines
+under it is just webpage settings for properly processing the HTML file. The
+title line under it, however, provides a title element for the page. Ok, when
+I said no visual output, I wasn't being completely honest. The title element
+defines the text that the user will see on the tab/title bar of the website like
+when you open tabs and can identify websites by them. Finally, at boostrap_css
+and boostrap_javascript, we finally use boostrap's custom template tags. These
+two tags tell Django to include all the Bootstrap style files. Then we close the
+head. Now, the body of an HTML file contains the content users will see on a
+page. In the beginning of the body, we define a nav element that indicates the
+navigation links section of the page. Everything contained in this element is
+styled according to the Bootstrap style rules defined by the selectors navbar,
+navbar-default, and navbar-static-top. A selector originates from CSS and
+determines which parts of an html document will have a particular style 
+(bootstrap in this case) attached to them. They specify which elements the style
+should be applied to. In this case, we're using bootstrap's default styling
+for a navigation bar. navbar refers to said navigation bar style.
+navbar-default refers to the default bootstrap color of the navigation bar.
+navbar-static-top refers to the navigation bar always staying at the top of the
+page (no matter if you scroll). The button type references a button that will
+appear if the browser window is too narrow to diplay the whole nav bar
+horizontally. When the user clicks the button, the navigation elements will
+appear in a drop-down list. The collapse reference causes the navigation bar
+to collapse when the user shrinks the browser window or on mobile screens.
+In the next line with navbar-brand, we set the project's name to appear at
+the far left of the navigation bar and make it into a link to the home page.
+Afterwards, we make a new div where we define a set of links that lets users
+navigate the site. A navigation bar is basically a list that starts with <ul>,
+and each link is an item in this list (<li>). At navbar-right, we place a
+second list of navigation links. The navbar-right selector styles the set of
+links so it appears at the right edge of the navigation bar where you typically
+see login and registration links. In the final div, the rest of base.html
+contains the main part of the page (the actual content). Right at the opening
+div (<div class="container"), the div contains a class called container. A div
+is a section of a web page that can be used for any purpose and can be styled
+with a border, space around the element (margins), space between the contents
+and the border (padding), background colors, and other style rules. This
+particular div acts as a container into which we place two elements: a new
+block called header and the content block we used since the very beginning of
+templates. The header block contains information telling the user what kind
+of information the page holds and what they can do on a page. It has the class
+page-header, which applies a set of style rules to the block. The content block
+is in a separate div with no specific style classes. -->
