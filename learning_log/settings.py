@@ -152,6 +152,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL ='/users/login/'
 
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
+
 # Settigns for django-bootstrap3
 BOOTSTRAP3 = {
     'include_jquery': True,
