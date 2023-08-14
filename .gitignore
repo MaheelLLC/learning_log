@@ -1,4 +1,2 @@
-ll_env/
-__pycache__/
-*.sqlite3
-learning_log/
+db.sqlite3
+*.pyc
